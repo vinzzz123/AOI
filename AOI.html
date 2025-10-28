@@ -7,7 +7,7 @@
   <meta name="description" content="Tentang AOI Nano Cluster Water - Manfaat dan teknologi air kesehatan dari Jepang">
   <title>Tentang AOI - Nano Cluster Water Indonesia</title>
   
-<style>
+  <style>
   *, *::before, *::after {
     margin: 0;
     padding: 0;
@@ -15,9 +15,9 @@
   }
 
   :root {
+    /* Variables from Diet and Beauty.html */
     --color-primary: #000435;
     --color-primary-light: #1a3d7c;
-    --color-primary-dark: #000220;
     --color-accent: #6d87b9;
     --color-accent-light: #8fa3c9;
     --color-white: #ffffff;
@@ -27,7 +27,6 @@
     
     --gradient-primary: linear-gradient(135deg, #000435 0%, #1a3d7c 100%);
     --gradient-accent: linear-gradient(135deg, #6d87b9 0%, #8fa3c9 100%);
-    --gradient-overlay: linear-gradient(135deg, rgba(0,4,53,0.9) 0%, rgba(26,61,124,0.8) 100%);
     
     --spacing-xs: clamp(0.5rem, 1vw, 0.75rem);
     --spacing-sm: clamp(0.75rem, 1.5vw, 1rem);
@@ -37,9 +36,9 @@
     --spacing-2xl: clamp(3rem, 6vw, 6rem);
     
     --font-size-sm: clamp(0.875rem, 1.5vw, 1rem);
-    --font-size-base: clamp(1rem, 2vw, 1.125rem);
+    --font-size-base: clamp(1rem, 2vw, 1.25rem); /* Adjusted from AOI.html's 1.125rem */
     --font-size-lg: clamp(1.125rem, 2.5vw, 1.5rem);
-    --font-size-xl: clamp(1.5rem, 3.5vw, 2.25rem);
+    --font-size-xl: clamp(1.5rem, 3.5vw, 2.25rem); /* Adjusted from AOI.html's 2.25rem */
     --font-size-2xl: clamp(2rem, 5vw, 3rem);
     
     --container-max: 1400px;
@@ -56,6 +55,9 @@
     --radius-md: 12px;
     --radius-lg: 16px;
     --radius-xl: 24px;
+
+    /* AOI.html specific variable */
+    --gradient-overlay: linear-gradient(135deg, rgba(0,4,53,0.9) 0%, rgba(26,61,124,0.8) 100%);
   }
 
   html {
@@ -69,63 +71,35 @@
     background-color: var(--color-white);
     line-height: 1.6;
     overflow-x: hidden;
-    padding-top: 70px;
+    padding-top: clamp(70px, 12vw, 90px); /* Base style from Diet and Beauty */
   }
 
-  /* Google Translate Styles */
-  .goog-te-banner-frame.skiptranslate {
-    display: none !important;
-  }
-
-  body {
-    top: 0 !important;
-  }
-
-  body > .skiptranslate {
-    display: none;
-  }
-
-  #google_translate_element {
-    display: none;
-  }
-
+  /* Language Switcher Logic */
   .language-switcher {
     display: flex;
     align-items: center;
     gap: 8px;
-    background: rgba(255, 255, 255, 0.2);
+    background: var(--color-gray-light);
     padding: 6px 12px;
     border-radius: 20px;
     cursor: pointer;
     transition: var(--transition-base);
   }
 
-  nav.scrolled .language-switcher {
-    background: var(--color-gray-light);
-  }
-
   .language-switcher i {
-    color: var(--color-white);
-    font-size: 14px;
-  }
-
-  nav.scrolled .language-switcher i {
     color: var(--color-primary);
+    font-size: 16px; /* Adjusted from 14px */
   }
 
   .lang-btn {
     background: none;
     border: none;
-    color: var(--color-white);
+    color: var(--color-primary);
     font-weight: 600;
-    font-size: 13px;
+    font-size: 14px; /* Adjusted from 13px */
     cursor: pointer;
     padding: 0;
     transition: var(--transition-base);
-  }
-
-  nav.scrolled .lang-btn {
-    color: var(--color-primary);
   }
 
   .lang-btn:hover {
@@ -133,12 +107,8 @@
   }
 
   .lang-divider {
-    color: var(--color-white);
-    margin: 0 2px;
-  }
-
-  nav.scrolled .lang-divider {
     color: var(--color-primary);
+    margin: 0 2px;
   }
 
   .lang-btn.active {
@@ -179,6 +149,11 @@
     color: var(--color-white);
   }
 
+  /* Hide/Show based on language */
+  [data-lang="en"] { display: none; }
+  body.lang-en [data-lang="id"] { display: none; }
+  body.lang-en [data-lang="en"] { display: block; }
+
   .container {
     width: 100%;
     max-width: var(--container-max);
@@ -186,13 +161,14 @@
     padding: 0 var(--container-padding);
   }
 
+  /* Loading Screen */
   .loading-screen {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100vh;
-    background: var(--gradient-primary);
+    background: var(--color-primary); /* Use solid color */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -218,6 +194,7 @@
     to { transform: rotate(360deg); }
   }
 
+  /* Scroll to Top */
   .scroll-to-top {
     position: fixed;
     bottom: 30px;
@@ -252,6 +229,7 @@
     box-shadow: var(--shadow-xl);
   }
 
+  /* Navbar */
   nav {
     position: fixed;
     top: 0;
@@ -259,10 +237,10 @@
     right: 0;
     width: 100%;
     background: white;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     z-index: 1000;
-    padding: 8px clamp(1rem, 5vw, 3rem);
-    min-height: 60px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: clamp(10px, 2vw, 15px) 0;
+    min-height: 70px;
   }
 
   .nav-container {
@@ -272,6 +250,7 @@
     max-width: var(--container-max);
     margin: 0 auto;
     gap: var(--spacing-md);
+    padding: 0 var(--container-padding);
     position: relative;
   }
 
@@ -283,14 +262,16 @@
     z-index: 1001;
   }
 
-  nav .logo img {
-    height: clamp(45px, 7vw, 60px);
-    width: auto;
-    transition: var(--transition-base);
+  nav a.logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
   }
 
-  nav .logo img:hover {
-    transform: scale(1.05);
+  nav img {
+    height: clamp(50px, 8vw, 75px);
+    width: auto;
+    object-fit: contain;
   }
 
   .nav-right {
@@ -302,7 +283,7 @@
   .desktop-menu {
     list-style: none;
     display: none;
-    gap: clamp(15px, 3vw, 35px);
+    gap: clamp(1rem, 2.5vw, 2.5rem);
     align-items: center;
     margin: 0;
   }
@@ -311,11 +292,10 @@
     text-decoration: none;
     color: var(--color-primary);
     font-weight: 600;
-    font-size: clamp(0.85rem, 1.4vw, 1rem);
+    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
     transition: color 0.3s ease;
     white-space: nowrap;
     padding: var(--spacing-xs);
-    position: relative;
   }
 
   .desktop-menu li a:hover {
@@ -331,13 +311,13 @@
     position: absolute;
     top: 100%;
     left: 0;
-    background: var(--color-white);
-    padding: var(--spacing-sm) 0;
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-lg);
+    background: white;
+    padding: 10px 0;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     min-width: 220px;
-    margin-top: var(--spacing-xs);
-    list-style-type: none;
+    margin-top: 5px;
+    list-style: none;
     padding-left: 0;
     z-index: 1001;
   }
@@ -347,7 +327,6 @@
   }
 
   .desktop-menu li .dropdown-menu li {
-    list-style-type: none;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -360,40 +339,42 @@
 
   .desktop-menu li .dropdown-menu li a {
     display: block;
-    padding: var(--spacing-sm) var(--spacing-md);
+    padding: 10px 20px;
     color: var(--color-primary);
-    font-size: var(--font-size-sm);
-    text-decoration: none;
+    font-size: clamp(0.8rem, 1.2vw, 1rem);
+    font-weight: 500;
   }
 
   .desktop-menu li .dropdown-menu li a:hover {
-    background: var(--color-gray-light);
+    background: #f0f4ff;
+    color: var(--color-primary-light);
   }
 
   .hamburger-menu {
     display: block;
-    font-size: clamp(1.4rem, 3.5vw, 1.8rem);
+    font-size: clamp(1.5rem, 4vw, 2rem);
     color: var(--color-primary);
     cursor: pointer;
-    transition: var(--transition-base);
+    transition: color 0.3s ease;
     z-index: 1001;
-    padding: var(--spacing-xs);
+    padding: 5px;
     background: none;
     border: none;
   }
 
+  /* Mobile Menu */
   .mobile-menu {
     position: fixed;
     top: 0;
     right: -100%;
     width: min(100%, 400px);
     height: 100vh;
-    background-color: var(--color-white);
-    transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background-color: white;
+    transition: right 0.3s ease-in-out;
     z-index: 999;
     display: flex;
     flex-direction: column;
-    padding-top: clamp(80px, 15vh, 120px);
+    padding-top: clamp(80px, 15vw, 100px);
     overflow-y: auto;
     box-shadow: var(--shadow-lg);
   }
@@ -406,26 +387,25 @@
     list-style: none;
     width: 100%;
     text-align: center;
-    padding: 0 var(--spacing-lg);
+    padding: 0 20px;
   }
 
   .mobile-menu li {
-    margin-bottom: var(--spacing-md);
+    margin-bottom: clamp(15px, 3vw, 20px);
+    list-style: none;
   }
 
   .mobile-menu li a {
     color: var(--color-primary);
-    font-size: var(--font-size-lg);
+    font-size: clamp(1.2rem, 4vw, 1.5rem);
     font-weight: 600;
     text-decoration: none;
     display: block;
-    padding: var(--spacing-sm) 0;
-    transition: var(--transition-base);
+    padding: clamp(8px, 2vw, 10px) 0;
   }
 
   .mobile-menu li a:hover {
-    background-color: var(--color-gray-light);
-    color: var(--color-primary-light);
+    background-color: #f0f4ff;
   }
 
   .mobile-menu .dropdown-menu {
@@ -434,14 +414,21 @@
     background: transparent;
     box-shadow: none;
     padding: 0;
-    margin-top: var(--spacing-sm);
+    margin-top: 10px;
+    list-style: none;
+  }
+
+  .mobile-menu .dropdown-menu li {
+    list-style: none;
   }
 
   .mobile-menu .dropdown-menu li a {
-    font-size: var(--font-size-base);
-    padding-left: var(--spacing-lg);
-    color: var(--color-gray);
+    font-size: clamp(1rem, 3vw, 1.2rem);
+    padding-left: 20px;
+    color: #666;
   }
+
+  /* --- STYLES SPECIFIC TO AOI.html --- */
 
   .hero {
     position: relative;
@@ -452,6 +439,7 @@
     align-items: center;
     justify-content: center;
     padding: var(--spacing-2xl) var(--container-padding);
+    margin-top: -clamp(70px, 12vw, 90px); /* Offset for fixed navbar */
   }
 
   .hero::before {
@@ -681,6 +669,7 @@
     border-color: transparent;
   }
 
+  /* Footer (from Diet and Beauty) */
   .footer {
     background: var(--gradient-primary);
     color: var(--color-white);
@@ -770,6 +759,7 @@
     transform: translateY(0);
   }
 
+  /* Responsive Media Queries */
   @media (min-width: 768px) {
     .desktop-menu {
       display: flex;
@@ -779,6 +769,20 @@
       display: none;
     }
     
+    .footer-grid {
+      grid-template-columns: 2fr 1fr;
+      text-align: left;
+    }
+    
+    .footer-social {
+      justify-content: flex-end;
+    }
+
+    .mobile-lang-switcher {
+      display: none;
+    }
+
+    /* AOI.html specific responsive styles */
     .slide-content {
       grid-template-columns: 1fr 1fr;
     }
@@ -794,18 +798,20 @@
     .slide-text {
       text-align: left;
     }
-    
-    .footer-grid {
-      grid-template-columns: 2fr 1fr;
-      text-align: left;
+  }
+
+  @media (max-width: 767px) {
+    .hamburger-menu {
+      display: block !important;
     }
-    
-    .footer-social {
-      justify-content: flex-end;
+
+    .language-switcher {
+      display: none !important;
     }
   }
 
   @media (min-width: 992px) {
+    /* AOI.html specific responsive styles */
     .cards-grid {
       grid-template-columns: repeat(3, 1fr);
     }
@@ -828,55 +834,57 @@
     <i class="fas fa-arrow-up"></i>
   </button>
 
+  <!-- NEW NAVBAR (from Diet and Beauty.html) -->
   <nav>
     <div class="nav-container">
       <div class="logo-container">
-      <a href="Home.html" class="logo">
-        <img src="./Assets/AOI.png" alt="AOI Logo">
-      </a>
-    </div>
-    
-    <div class="nav-right">
-      <ul class="desktop-menu">
-        <li><a href="Home.html" data-lang="id">BERANDA</a><a href="Home.html" data-lang="en">HOME</a></li>
-        <li><a href="AOI.html" data-lang="id">TENTANG AOI</a><a href="AOI.html" data-lang="en">ABOUT AOI</a></li>
-        <li class="dropdown">
-          <a href="#" data-lang="id">FILM AOI ▾</a><a href="#" data-lang="en">AOI FILMS ▾</a>
-          <ul class="dropdown-menu">
-            <li><a href="./Introduction.html">Introduction</a></li>
-            <li><a href="./Sports.html">Sports Performance</a></li>
-            <li><a href="./Diet and Beauty.html">Diet and Beauty</a></li>
-          </ul>
-        </li>
-        <li><a href="Home.html#products" data-lang="id">PRODUK KAMI</a><a href="Home.html#products" data-lang="en">OUR PRODUCTS</a></li>
-        <li><a href="Home.html#stores" data-lang="id">BELI DI MANA</a><a href="Home.html#stores" data-lang="en">WHERE TO BUY</a></li>
-        <li><a href="#footer" data-lang="id">HUBUNGI KAMI</a><a href="#footer" data-lang="en">CONTACT US</a></li>
-      </ul>
-
-      <div class="language-switcher">
-        <i class="fas fa-globe"></i>
-        <button class="lang-btn active" onclick="changeLanguage('id')">ID</button>
-        <span class="lang-divider">|</span>
-        <button class="lang-btn" onclick="changeLanguage('en')">EN</button>
+        <a href="Home.html" class="logo">
+          <img src="Assets/AOI.png" alt="AOI Logo">
+        </a>
       </div>
-    </div>
-    
-    <button class="hamburger-menu" onclick="toggleMobileMenu()" aria-label="Toggle menu">
-      <i class="fas fa-bars"></i>
-    </button>
+      
+      <div class="nav-right">
+        <ul class="desktop-menu">
+          <li><a href="Home.html" data-lang="id">BERANDA</a><a href="Home.html" data-lang="en">HOME</a></li>
+          <li><a href="AOI.html" data-lang="id">TENTANG AOI</a><a href="AOI.html" data-lang="en">ABOUT AOI</a></li>
+          <li class="dropdown">
+            <a href="#" data-lang="id">FILM AOI ▾</a><a href="#" data-lang="en">AOI FILMS ▾</a>
+            <ul class="dropdown-menu">
+              <li><a href="Introduction.html">Introduction</a></li>
+              <li><a href="Sports.html">Sports Performance</a></li>
+              <li><a href="Diet and Beauty.html">Diet and Beauty</a></li>
+            </ul>
+          </li>
+          <li><a href="Home.html#products" data-lang="id">PRODUK KAMI</a><a href="Home.html#products" data-lang="en">OUR PRODUCTS</a></li>
+          <li><a href="Home.html#stores" data-lang="id">BELI DI MANA</a><a href="Home.html#stores" data-lang="en">WHERE TO BUY</a></li>
+          <li><a href="#footer" data-lang="id">HUBUNGI KAMI</a><a href="#footer" data-lang="en">CONTACT US</a></li>
+        </ul>
+
+        <div class="language-switcher">
+          <i class="fas fa-globe"></i>
+          <button class="lang-btn active" onclick="changeLanguage('id')">ID</button>
+          <span class="lang-divider">|</span>
+          <button class="lang-btn" onclick="changeLanguage('en')">EN</button>
+        </div>
+      </div>
+      
+      <button class="hamburger-menu" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+        <i class="fas fa-bars"></i>
+      </button>
     </div>
   </nav>
 
+  <!-- NEW MOBILE MENU (from Diet and Beauty.html) -->
   <div class="mobile-menu" id="mobile-menu">
     <ul>
       <li><a href="Home.html" onclick="toggleMobileMenu()" data-lang="id">BERANDA</a><a href="Home.html" onclick="toggleMobileMenu()" data-lang="en">HOME</a></li>
       <li><a href="AOI.html" onclick="toggleMobileMenu()" data-lang="id">TENTANG AOI</a><a href="AOI.html" onclick="toggleMobileMenu()" data-lang="en">ABOUT AOI</a></li>
       <li class="dropdown">
-        <a href="#" data-lang="id">FILM AOI</a><a href="#" data-lang="en">AOI FILMS</a>
+        <a href="#" data-lang="id">FILM AOI ▾</a><a href="#" data-lang="en">AOI FILMS ▾</a>
         <ul class="dropdown-menu">
-          <li><a href="./Introduction.html" onclick="toggleMobileMenu()">Introduction</a></li>
-          <li><a href="./Sports.html" onclick="toggleMobileMenu()">Sports Performance</a></li>
-          <li><a href="./Diet and Beauty.html" onclick="toggleMobileMenu()">Diet and Beauty</a></li>
+          <li><a href="Introduction.html" onclick="toggleMobileMenu()">Introduction</a></li>
+          <li><a href="Sports.html" onclick="toggleMobileMenu()">Sports Performance</a></li>
+          <li><a href="Diet and Beauty.html" onclick="toggleMobileMenu()">Diet and Beauty</a></li>
         </ul>
       </li>
       <li><a href="Home.html#products" onclick="toggleMobileMenu()" data-lang="id">PRODUK KAMI</a><a href="Home.html#products" onclick="toggleMobileMenu()" data-lang="en">OUR PRODUCTS</a></li>
@@ -894,48 +902,67 @@
     </div>
   </div>
 
+
+  <!-- HERO SECTION with translations -->
   <section class="hero">
     <div class="hero-content">
       <h1>AOI Nano Cluster Water</h1>
-      <h2>adalah air dengan inovasi teknologi dari Jepang, diformulasikan agar dapat lebih mudah diserap oleh tubuh.</h2>
-      <h2>Sehingga, dapat meningkatkan distribusi oksigen ke seluruh tubuh</h2>
+      <h2 data-lang="id">adalah air dengan inovasi teknologi dari Jepang, diformulasikan agar dapat lebih mudah diserap oleh tubuh.</h2>
+      <h2 data-lang="en">is water with technological innovation from Japan, formulated to be more easily absorbed by the body.</h2>
+      <h2 data-lang="id">Sehingga, dapat meningkatkan distribusi oksigen ke seluruh tubuh</h2>
+      <h2 data-lang="en">Thus, it can improve oxygen distribution throughout the body</h2>
     </div>
   </section>
 
+  <!-- CARDS SECTION with translations -->
   <section class="cards-section" id="cards">
     <div class="container">
       <div class="section-header">
-        <h1>Manfaat AOI</h1>
+        <h1 data-lang="id">Manfaat AOI</h1>
+        <h1 data-lang="en">Benefits of AOI</h1>
       </div>
 
       <div class="cards-grid">
         <div class="card fade-in" onclick="scrollToSection('vo2max')">
           <img src="Assets/VO2Max.png" alt="VO2Max">
-          <p><strong>Meningkatkan Performa VO2 Max hingga 13.26%</strong></p>
+          <p>
+            <strong data-lang="id">Meningkatkan Performa VO2 Max hingga 13.26%</strong>
+            <strong data-lang="en">Increases VO2 Max Performance by up to 13.26%</strong>
+          </p>
         </div>
 
         <div class="card fade-in" onclick="scrollToSection('health')">
           <img src="Assets/Health.png" alt="Health">
-          <p><strong>Untuk Diet dan Kesehatan</strong></p>
+          <p>
+            <strong data-lang="id">Untuk Diet dan Kesehatan</strong>
+            <strong data-lang="en">For Diet and Health</strong>
+          </p>
         </div>
         <div class="card fade-in" onclick="scrollToSection('metabolism')">
           <img src="Assets/Metabolism.png" alt="Metabolism">
-          <p><strong>Mempercepat Metabolisme Tubuh</strong></p>
+          <p>
+            <strong data-lang="id">Mempercepat Metabolisme Tubuh</strong>
+            <strong data-lang="en">Accelerates Body Metabolism</strong>
+          </p>
         </div>
         
       </div>
     </div>
   </section>
 
+  <!-- SLIDER 1 with translations -->
   <section class="slider-section" id="metabolism">
     <div class="container">
-      <h1 class="slider-title">Mempercepat Metabolisme</h1>
+      <h1 class="slider-title" data-lang="id">Mempercepat Metabolisme</h1>
+      <h1 class="slider-title" data-lang="en">Accelerating Metabolism</h1>
       <div class="content-slider">
         <div class="slide active">
           <div class="slide-content">
             <div class="slide-text">
-              <h2>Meningkatkan Permeabilitas dengan Cara Memotong Molekul Air</h2>
-              <h3>Molekul air tidak bersifat independen sebagai satu-satunya molekul di lingkungan alaminya. Beberapa molekul selalu membentuk kelompok molekul yang disebut dengan "Kelompok atau kluster air". Kita bisa meningkatkan permeabilitas dan kemampuan tubuh menyerap air dengan cara memotong hubungan antara molekul air, kemudian molekul gugus air besar dipisahkan menjadi kluster air yang lebih kecil.</h3>
+              <h2 data-lang="id">Meningkatkan Permeabilitas dengan Cara Memotong Molekul Air</h2>
+              <h2 data-lang="en">Increasing Permeability by Breaking Water Molecules</h2>
+              <h3 data-lang="id">Molekul air tidak bersifat independen sebagai satu-satunya molekul di lingkungan alaminya. Beberapa molekul selalu membentuk kelompok molekul yang disebut dengan "Kelompok atau kluster air". Kita bisa meningkatkan permeabilitas dan kemampuan tubuh menyerap air dengan cara memotong hubungan antara molekul air, kemudian molekul gugus air besar dipisahkan menjadi kluster air yang lebih kecil.</h3>
+              <h3 data-lang="en">Water molecules are not independent as the only molecules in their natural environment. Several molecules always form groups of molecules called "water clusters". We can increase permeability and the body's ability to absorb water by breaking the connections between water molecules, then large water molecule groups are separated into smaller water clusters.</h3>
             </div>
             <div class="slide-image">
               <img src="Assets/NanoCluster.png" alt="Nano Cluster">
@@ -946,8 +973,10 @@
         <div class="slide">
           <div class="slide-content reverse">
             <div class="slide-text">
-              <h2>Meningkatkan Kemampuan Tubuh Menyerap Air</h2>
-              <h3>Kluster molekul air yang lebih kecil ini mampu menembus dengan lancar ke dalam pembuluh darah kapiler kita. Dengan meminum air yang mengandung lebih sedikit molekul, kita pun dapat menghidrasi tubuh lebih cepat dan efektif dan meningkatkan metabolisme tubuh sehari-hari untuk bekerja lebih baik</h3>
+              <h2 data-lang="id">Meningkatkan Kemampuan Tubuh Menyerap Air</h2>
+              <h2 data-lang="en">Increasing the Body's Ability to Absorb Water</h2>
+              <h3 data-lang="id">Kluster molekul air yang lebih kecil ini mampu menembus dengan lancar ke dalam pembuluh darah kapiler kita. Dengan meminum air yang mengandung lebih sedikit molekul, kita pun dapat menghidrasi tubuh lebih cepat dan efektif dan meningkatkan metabolisme tubuh sehari-hari untuk bekerja lebih baik</h3>
+              <h3 data-lang="en">These smaller water molecule clusters can smoothly penetrate our capillary blood vessels. By drinking water that contains fewer molecules, we can hydrate the body faster and more effectively and improve daily body metabolism to work better.</h3>
             </div>
             <div class="slide-image">
               <img src="Assets/Absorption.png" alt="Absorption">
@@ -960,15 +989,19 @@
     </div>
   </section>
 
+  <!-- SLIDER 2 with translations -->
   <section class="slider-section" id="vo2max">
     <div class="container">
-      <h1 class="slider-title">Meningkatkan VO2 Max</h1>
+      <h1 class="slider-title" data-lang="id">Meningkatkan VO2 Max</h1>
+      <h1 class="slider-title" data-lang="en">Increasing VO2 Max</h1>
       <div class="content-slider">
         <div class="slide active">
           <div class="slide-content">
             <div class="slide-text">
-              <h2>Apa Itu VO2 Max dan Perannya dalam Daya Tahan Tubuh</h2>
-              <h3>VO2 max adalah tingkat maksimum konsumsi oksigen tubuh selama latihan intensitas tinggi, yang mencerminkan efisiensi tubuh dalam menggunakan oksigen untuk menghasilkan energi. Indikator ini menjadi ukuran utama daya tahan tubuh seseorang.</h3>
+              <h2 data-lang="id">Apa Itu VO2 Max dan Perannya dalam Daya Tahan Tubuh</h2>
+              <h2 data-lang="en">What is VO2 Max and Its Role in Endurance</h2>
+              <h3 data-lang="id">VO2 max adalah tingkat maksimum konsumsi oksigen tubuh selama latihan intensitas tinggi, yang mencerminkan efisiensi tubuh dalam menggunakan oksigen untuk menghasilkan energi. Indikator ini menjadi ukuran utama daya tahan tubuh seseorang.</h3>
+              <h3 data-lang="en">VO2 max is the maximum rate of oxygen consumption by the body during high-intensity exercise, reflecting the body's efficiency in using oxygen to produce energy. This indicator is a primary measure of a person's endurance.</h3>
             </div>
             <div class="slide-image">
               <img src="Assets/VO2Max_1.png" alt="VO2Max 1">
@@ -979,8 +1012,10 @@
         <div class="slide">
           <div class="slide-content reverse">
             <div class="slide-text">
-              <h2>Peningkatan Performa VO2 Max dengan AOI Nano Cluster Water</h2>
-              <h3>AOI Nano Cluster Water membantu tubuh menyerap oksigen lebih optimal melalui kapiler paru-paru. Uji eksperimen menunjukkan peningkatan performa VO2 max rata-rata 13,26%, sehingga tubuh lebih efisien dalam mendukung kinerja fisik dan daya tahan.</h3>
+              <h2 data-lang="id">Peningkatan Performa VO2 Max dengan AOI Nano Cluster Water</h2>
+              <h2 data-lang="en">VO2 Max Performance_Increase with AOI Nano Cluster Water</h2>
+              <h3 data-lang="id">AOI Nano Cluster Water membantu tubuh menyerap oksigen lebih optimal melalui kapiler paru-paru. Uji eksperimen menunjukkan peningkatan performa VO2 max rata-rata 13,26%, sehingga tubuh lebih efisien dalam mendukung kinerja fisik dan daya tahan.</h3>
+              <h3 data-lang="en">AOI Nano Cluster Water helps the body absorb oxygen more optimally through lung capillaries. Experiments show an average VO2 max performance increase of 13.26%, making the body more efficient in supporting physical performance and endurance.</h3>
             </div>
             <div class="slide-image">
               <img src="Assets/VO2Max_2.png" alt="VO2Max 2">
@@ -993,15 +1028,19 @@
     </div>
   </section>
 
+  <!-- SLIDER 3 with translations -->
   <section class="slider-section" id="health">
     <div class="container">
-      <h1 class="slider-title">Diet & Kesehatan</h1>
+      <h1 class="slider-title" data-lang="id">Diet & Kesehatan</h1>
+      <h1 class="slider-title" data-lang="en">Diet & Health</h1>
       <div class="content-slider">
         <div class="slide active">
           <div class="slide-content">
             <div class="slide-text">
-              <h2>Metabolisme yang Tinggi untuk Kecantikan dan Diet</h2>
-              <h3>AOI Nano Cluster Water membantu meningkatkan metabolisme tubuh melalui efek inframerah ultra-jauh yang memperbaiki kapasitas panas dan konduktivitas termal. Peningkatan metabolisme ini mendukung tubuh tetap langsing serta mempercepat regenerasi kulit.</h3>
+              <h2 data-lang="id">Metabolisme yang Tinggi untuk Kecantikan dan Diet</h2>
+              <h2 data-lang="en">High Metabolism for Beauty and Diet</h2>
+              <h3 data-lang="id">AOI Nano Cluster Water membantu meningkatkan metabolisme tubuh melalui efek inframerah ultra-jauh yang memperbaiki kapasitas panas dan konduktivitas termal. Peningkatan metabolisme ini mendukung tubuh tetap langsing serta mempercepat regenerasi kulit.</h3>
+              <h3 data-lang="en">AOI Nano Cluster Water helps increase body metabolism through an ultra-far-infrared effect that improves heat capacity and thermal conductivity. This metabolic increase supports a slim body and accelerates skin regeneration.</h3>
             </div>
             <div class="slide-image">
               <img src="Assets/Health_1.jpg" alt="Health 1">
@@ -1012,8 +1051,10 @@
         <div class="slide">
           <div class="slide-content reverse">
             <div class="slide-text">
-              <h2>Pembakaran Lemak yang lebih Optimal</h2>
-              <h3>Penelitian menunjukkan AOI Nano Cluster Water dapat menurunkan Asam Lemak Peroksida hingga 17,9% dalam 7 jam, berbeda dengan air keran. Teknologi ini membuat lemak lebih mudah diurai dan meningkatkan efisiensi pembakaran lemak.</h3>
+              <h2 data-lang="id">Pembakaran Lemak yang lebih Optimal</h2>
+              <h2 data-lang="en">More Optimal Fat Burning</h2>
+              <h3 data-lang="id">Penelitian menunjukkan AOI Nano Cluster Water dapat menurunkan Asam Lemak Peroksida hingga 17,9% dalam 7 jam, berbeda dengan air keran. Teknologi ini membuat lemak lebih mudah diurai dan meningkatkan efisiensi pembakaran lemak.</h3>
+              <h3 data-lang="en">Research shows AOI Nano Cluster Water can reduce Peroxide Fatty Acids by up to 17.9% in 7 hours, unlike tap water. This technology makes fat easier to break down and increases fat-burning efficiency.</h3>
             </div>
             <div class="slide-image">
               <img src="Assets/Health_2.png" alt="Health 2">
@@ -1026,11 +1067,13 @@
     </div>
   </section>
 
+  <!-- FOOTER with translations -->
   <footer class="footer" id="footer">
     <div class="container">
       <div class="footer-grid">
         <div class="footer-left">
-          <h2>HUBUNGI KAMI</h2>
+          <h2 data-lang="id">HUBUNGI KAMI</h2>
+          <h2 data-lang="en">CONTACT US</h2>
           <p>
             PT Santini Logmax Indonesia<br>
             Jl. Komp. Kawasan, RT.10/RW.3, Semper Timur,<br>
@@ -1038,7 +1081,7 @@
             DKI Jakarta 14130
           </p>
           <p><strong>Tel:</strong> +62214400528</p>
-          <p><strong>Jam Operasional:</strong> 08.00 - 16.30</p>
+          <p><strong data-lang="id">Jam Operasional:</strong><strong data-lang="en">Operating Hours:</strong> 08.00 - 16.30</p>
         </div>
 
         <div class="footer-social">
@@ -1068,10 +1111,202 @@
     };
   </script>
 
-  <!-- External JavaScript Files -->
-  <script src="language-switcher.js"></script>
-  <script src="main.js"></script>
+  <!-- NEW Main JavaScript (from Diet and Beauty.html + AOI.html functions) -->
+  <script>
+    (function() {
+      'use strict';
+
+      // =====================
+      // LOADING SCREEN
+      // =====================
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          const loader = document.getElementById('loading-screen');
+          if (loader) loader.classList.add('hidden');
+        }, 500);
+      });
+
+      // =====================
+      // MOBILE MENU
+      // =====================
+      window.toggleMobileMenu = function() {
+        const menu = document.getElementById('mobile-menu');
+        const icon = document.querySelector('.hamburger-menu i');
+        menu.classList.toggle('active');
+        icon.className = menu.classList.contains('active') ? 'fas fa-times' : 'fas fa-bars';
+        document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : '';
+      };
+
+      document.addEventListener('click', (e) => {
+        const menu = document.getElementById('mobile-menu');
+        const hamburger = document.querySelector('.hamburger-menu');
+        if (menu && menu.classList.contains('active') && !menu.contains(e.target) && !hamburger.contains(e.target)) {
+          toggleMobileMenu();
+        }
+      });
+
+      document.addEventListener('keydown', (e) => {
+        const menu = document.getElementById('mobile-menu');
+        if (e.key === 'Escape' && menu && menu.classList.contains('active')) {
+          toggleMobileMenu();
+        }
+      });
+
+      // =====================
+      // SMOOTH SCROLLING (for anchor links)
+      // =====================
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          const href = this.getAttribute('href');
+          if (href === '#') return;
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            const navbar = document.querySelector('nav');
+            window.scrollTo({
+              top: target.offsetTop - (navbar ? navbar.offsetHeight : 90) - 20,
+              behavior: 'smooth'
+            });
+            const menu = document.getElementById('mobile-menu');
+            if (menu && menu.classList.contains('active')) {
+              toggleMobileMenu();
+            }
+          }
+        });
+      });
+
+      // =====================
+      // SCROLL TO TOP BUTTON
+      // =====================
+      const scrollBtn = document.getElementById('scroll-to-top');
+      if (scrollBtn) {
+        window.addEventListener('scroll', () => {
+          scrollBtn.classList.toggle('visible', window.pageYOffset > 300);
+        }, { passive: true });
+
+        scrollBtn.addEventListener('click', () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+
+      // =====================
+      // INTERSECTION OBSERVER
+      // =====================
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+      // =====================
+      // MANUAL LANGUAGE SWITCHER
+      // =====================
+      window.changeLanguage = function(lang) {
+        if (lang !== 'id' && lang !== 'en') return;
+        
+        // Update body class
+        document.body.className = 'lang-' + lang;
+        
+        // Update button states
+        document.querySelectorAll('.lang-btn, .mobile-lang-switcher button').forEach(btn => {
+          btn.classList.remove('active');
+        });
+        
+        // Set active state for desktop
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+          if (btn.textContent.trim().toLowerCase() === lang) {
+            btn.classList.add('active');
+          }
+        });
+        
+        // Set active state for mobile
+        document.querySelectorAll('.mobile-lang-switcher button').forEach(btn => {
+          if ((lang === 'id' && btn.textContent.includes('Indonesian')) ||
+              (lang === 'en' && btn.textContent.includes('English'))) {
+            btn.classList.add('active');
+          }
+        });
+        
+        // Save preference
+        try {
+          localStorage.setItem('preferredLanguage', lang);
+        } catch (e) {
+          console.warn('Could not save language preference to localStorage:', e);
+        }
+      };
+
+      // Load saved language preference
+      try {
+        const savedLang = localStorage.getItem('preferredLanguage');
+        if (savedLang === 'en' || savedLang === 'id') {
+          changeLanguage(savedLang);
+        } else {
+          changeLanguage('id'); // Default to 'id'
+        }
+      } catch (e) {
+        console.warn('Could not read language preference from localStorage:', e);
+        changeLanguage('id'); // Default to 'id'
+      }
+
+      // =====================
+      // FUNCTIONS FROM AOI.html
+      // =====================
+
+      /**
+       * Scrolls smoothly to a specific section.
+       * Called by onclick="scrollToSection('sectionId')"
+       */
+      window.scrollToSection = function(sectionId) {
+        const target = document.getElementById(sectionId);
+        if (target) {
+          const navbar = document.querySelector('nav');
+          let navbarHeight = 90; // Default fallback
+          if (navbar) {
+            navbarHeight = navbar.offsetHeight;
+          }
+          
+          window.scrollTo({
+            top: target.offsetTop - navbarHeight - 20, // 20px padding
+            behavior: 'smooth'
+          });
+        }
+      }
+
+      /**
+       * Advances the slide in a specific slider.
+       * Called by onclick="nextSlide('sliderId')"
+       */
+      window.nextSlide = function(sliderId) {
+        // Check if the sliderId is a valid key in the global 'sliders' object
+        if (typeof sliders === 'undefined' || !sliders.hasOwnProperty(sliderId)) {
+          console.error('Slider object not found or sliderId is invalid:', sliderId);
+          return;
+        }
+        
+        const sliderContainer = document.querySelector(`#${sliderId} .content-slider`);
+        if (!sliderContainer) {
+          console.error('Slider container not found for:', sliderId);
+          return;
+        }
+
+        const slides = sliderContainer.querySelectorAll('.slide');
+        if (slides.length === 0) return;
+
+        // Hide current slide
+        slides[sliders[sliderId]].classList.remove('active');
+        
+        // Increment index and wrap around
+        sliders[sliderId] = (sliders[sliderId] + 1) % slides.length;
+        
+        // Show new slide
+        slides[sliders[sliderId]].classList.add('active');
+      }
+
+    })();
+  </script>
 </body>
-
-
-        <div class="card fade-in" onclick
+</html>
