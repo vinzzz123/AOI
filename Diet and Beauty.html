@@ -70,84 +70,12 @@
     padding-top: clamp(70px, 12vw, 90px);
   }
 
-  .language-switcher {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--color-gray-light);
-    padding: 6px 12px;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: var(--transition-base);
-  }
-
-  .language-switcher i {
-    color: var(--color-primary);
-    font-size: 16px;
-  }
-
-  .lang-btn {
-    background: none;
-    border: none;
-    color: var(--color-primary);
-    font-weight: 600;
-    font-size: 14px;
-    cursor: pointer;
-    padding: 0;
-    transition: var(--transition-base);
-  }
-
-  .lang-btn:hover {
-    opacity: 0.7;
-  }
-
-  .lang-divider {
-    color: var(--color-primary);
-    margin: 0 2px;
-  }
-
-  .lang-btn.active {
-    text-decoration: underline;
-  }
-
-  .mobile-lang-switcher {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 20px;
-    margin-top: 20px;
-    border-top: 1px solid var(--color-gray-light);
-  }
-
-  .mobile-lang-switcher button {
-    background: var(--color-gray-light);
-    border: none;
-    padding: 12px;
-    border-radius: 8px;
-    font-weight: 600;
-    color: var(--color-primary);
-    cursor: pointer;
-    transition: var(--transition-base);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-  }
-
-  .mobile-lang-switcher button:hover {
-    background: var(--color-primary);
-    color: var(--color-white);
-  }
-
-  .mobile-lang-switcher button.active {
-    background: var(--color-primary);
-    color: var(--color-white);
-  }
-
-  /* Hide/Show based on language */
-  [data-lang="en"] { display: none; }
-  body.lang-en [data-lang="id"] { display: none; }
-  body.lang-en [data-lang="en"] { display: block; }
+  /* Language Switching */
+  [data-lang="en"] { display: none !important; }
+  [data-lang="id"] { display: inline !important; }
+  
+  body.lang-en [data-lang="id"] { display: none !important; }
+  body.lang-en [data-lang="en"] { display: inline !important; }
 
   .container {
     width: 100%;
@@ -222,7 +150,6 @@
     box-shadow: var(--shadow-xl);
   }
 
-  /* NAVIGATION - THINNER VERSION */
   nav {
     position: fixed;
     top: 0;
@@ -232,18 +159,18 @@
     background: white;
     z-index: 1000;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    padding: 8px 0;
-    min-height: 60px;
+    padding: clamp(10px, 2vw, 15px) 0;
+    min-height: 70px;
   }
 
   .nav-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    max-width: 1400px;
+    max-width: var(--container-max);
     margin: 0 auto;
     gap: var(--spacing-md);
-    padding: 0 clamp(1rem, 5vw, 3rem);
+    padding: 0 var(--container-padding);
     position: relative;
   }
 
@@ -255,53 +182,56 @@
     z-index: 1001;
   }
 
-  nav .logo img {
-    height: clamp(45px, 7vw, 60px);
-    width: auto;
-    transition: var(--transition-base);
+  nav a.logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
   }
 
-  nav .logo img:hover {
-    transform: scale(1.05);
+  nav img {
+    height: clamp(50px, 8vw, 75px);
+    width: auto;
+    object-fit: contain;
   }
 
   .nav-right {
     display: flex;
     align-items: center;
-    gap: var(--spacing-md);
+    gap: var(--spacing-lg);
+    flex-grow: 1;
+    justify-content: flex-end;
+    min-width: 0;
   }
 
   .desktop-menu {
     list-style: none;
     display: none;
-    gap: clamp(15px, 3vw, 35px);
+    flex-wrap: nowrap;
+    gap: clamp(1.5rem, 3vw, 3rem);
     align-items: center;
     margin: 0;
+    padding: 0;
+    min-width: 0;
+  }
+
+  .desktop-menu li {
+    list-style: none;
+    flex-shrink: 0;
   }
 
   .desktop-menu li a {
     text-decoration: none;
     color: var(--color-primary);
-    font-weight: 600;
-    font-size: clamp(0.85rem, 1.4vw, 1rem);
+    font-weight: 700;
+    font-size: clamp(0.75rem, 1.2vw, 0.9rem);
     transition: color 0.3s ease;
     white-space: nowrap;
     padding: var(--spacing-xs);
-    position: relative;
-  }
-
-  /* Add arrow to dropdown links */
-  .desktop-menu li.dropdown > a::after {
-    content: "▼";
-    font-size: 0.55em; /* small, subtle arrow */
-    margin-left: 0.4em;
-    vertical-align: middle;
-    color: var(--color-primary);
-  }
-
-  /* Keep arrow color consistent on hover */
-  .desktop-menu li.dropdown:hover > a::after {
-    color: var(--color-primary-light);
+    display: block;
+    overflow: visible;
+    text-overflow: clip;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
   }
 
   .desktop-menu li a:hover {
@@ -310,26 +240,33 @@
 
   .desktop-menu li.dropdown {
     position: relative;
+    padding-bottom: 10px;
+    margin-bottom: -10px;
   }
 
   .desktop-menu li .dropdown-menu {
     display: none;
+    opacity: 0;
+    visibility: hidden;
     position: absolute;
     top: 100%;
     left: 0;
-    background: var(--color-white);
-    padding: var(--spacing-sm) 0;
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-lg);
+    background: white;
+    padding: 10px 0;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     min-width: 220px;
-    margin-top: var(--spacing-xs);
-    list-style-type: none;
+    margin-top: 0;
+    list-style: none;
     padding-left: 0;
     z-index: 1001;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
   }
 
   .desktop-menu li.dropdown:hover .dropdown-menu {
     display: block;
+    opacity: 1;
+    visibility: visible;
   }
 
   .desktop-menu li .dropdown-menu li {
@@ -345,42 +282,41 @@
 
   .desktop-menu li .dropdown-menu li a {
     display: block;
-    padding: var(--spacing-sm) var(--spacing-md);
+    padding: 10px 20px;
     color: var(--color-primary);
-    font-size: var(--font-size-sm);
-    text-decoration: none;
+    font-size: clamp(0.75rem, 1.1vw, 0.85rem);
+    font-weight: 600;
+    text-transform: none;
   }
 
   .desktop-menu li .dropdown-menu li a:hover {
-    background: var(--color-gray-light);
+    background: #f0f4ff;
+    color: var(--color-primary-light);
   }
 
-
+  /* Language Switcher - Styled like the image */
   .language-switcher {
-    display: flex;
+    display: none;
     align-items: center;
     gap: 8px;
-    background: var(--color-gray-light);
-    padding: 6px 12px;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: var(--transition-base);
+    flex-shrink: 0;
   }
 
   .language-switcher i {
     color: var(--color-primary);
-    font-size: 14px;
+    font-size: 18px;
   }
 
   .lang-btn {
     background: none;
     border: none;
     color: var(--color-primary);
-    font-weight: 600;
-    font-size: 13px;
+    font-weight: 700;
+    font-size: 14px;
     cursor: pointer;
     padding: 0;
     transition: var(--transition-base);
+    text-decoration: none;
   }
 
   .lang-btn:hover {
@@ -389,23 +325,26 @@
 
   .lang-divider {
     color: var(--color-primary);
-    margin: 0 2px;
+    margin: 0 4px;
+    font-weight: 400;
   }
 
   .lang-btn.active {
     text-decoration: underline;
+    text-underline-offset: 3px;
   }
 
   .hamburger-menu {
     display: block;
-    font-size: clamp(1.4rem, 3.5vw, 1.8rem);
+    font-size: clamp(1.5rem, 4vw, 2rem);
     color: var(--color-primary);
     cursor: pointer;
-    transition: var(--transition-base);
+    transition: color 0.3s ease;
     z-index: 1001;
-    padding: var(--spacing-xs);
+    padding: 5px;
     background: none;
     border: none;
+    flex-shrink: 0;
   }
 
   .mobile-menu {
@@ -414,12 +353,12 @@
     right: -100%;
     width: min(100%, 400px);
     height: 100vh;
-    background-color: var(--color-white);
-    transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background-color: white;
+    transition: right 0.3s ease-in-out;
     z-index: 999;
     display: flex;
     flex-direction: column;
-    padding-top: clamp(80px, 15vh, 120px);
+    padding-top: clamp(80px, 15vw, 100px);
     overflow-y: auto;
     box-shadow: var(--shadow-lg);
   }
@@ -432,26 +371,25 @@
     list-style: none;
     width: 100%;
     text-align: center;
-    padding: 0 var(--spacing-lg);
+    padding: 0 20px;
   }
 
   .mobile-menu li {
-    margin-bottom: var(--spacing-md);
+    margin-bottom: clamp(15px, 3vw, 20px);
+    list-style: none;
   }
 
   .mobile-menu li a {
     color: var(--color-primary);
-    font-size: var(--font-size-lg);
+    font-size: clamp(1.2rem, 4vw, 1.5rem);
     font-weight: 600;
     text-decoration: none;
     display: block;
-    padding: var(--spacing-sm) 0;
-    transition: var(--transition-base);
+    padding: clamp(8px, 2vw, 10px) 0;
   }
 
   .mobile-menu li a:hover {
-    background-color: var(--color-gray-light);
-    color: var(--color-primary-light);
+    background-color: #f0f4ff;
   }
 
   .mobile-menu .dropdown-menu {
@@ -460,13 +398,18 @@
     background: transparent;
     box-shadow: none;
     padding: 0;
-    margin-top: var(--spacing-sm);
+    margin-top: 10px;
+    list-style: none;
+  }
+
+  .mobile-menu .dropdown-menu li {
+    list-style: none;
   }
 
   .mobile-menu .dropdown-menu li a {
-    font-size: var(--font-size-base);
-    padding-left: var(--spacing-lg);
-    color: var(--color-gray);
+    font-size: clamp(1rem, 3vw, 1.2rem);
+    padding-left: 20px;
+    color: #666;
   }
 
   .mobile-lang-switcher {
@@ -585,6 +528,7 @@
     background: linear-gradient(135deg, #f0f7ff 0%, #e8f4ff 100%);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-md);
+    text-align: center;
   }
 
   .profile-image {
@@ -632,10 +576,11 @@
     font-size: var(--font-size-sm);
     line-height: 1.6;
     transition: var(--transition-base);
+    list-style: none;
   }
 
   .profile-content ul li::before {
-    content: "•";
+    content: '✓';
     position: absolute;
     left: 0;
     color: var(--color-primary);
@@ -643,8 +588,13 @@
     font-size: var(--font-size-base);
   }
 
+  .profile-content ul li:hover {
+    padding-left: calc(var(--spacing-lg) + 5px);
+    color: var(--color-primary);
+  }
+
   .footer {
-    background: var(--color-primary);
+    background: var(--gradient-primary);
     color: var(--color-white);
     padding: var(--spacing-2xl) 0 var(--spacing-xl);
     margin-top: var(--spacing-2xl);
@@ -702,13 +652,13 @@
   }
 
   .footer-social a:hover {
-    background: none;
+    background: var(--color-white);
   }
 
-  .footer-social a:hover .fa-instagram { color: #1877F2; }
+  .footer-social a:hover .fa-instagram { color: #E4405F; }
   .footer-social a:hover .fa-facebook { color: #1877F2; }
-  .footer-social a:hover .fa-tiktok { color: #1877F2; }
-  .footer-social a:hover .fa-whatsapp { color: #1877F2; }
+  .footer-social a:hover .fa-tiktok { color: #000; }
+  .footer-social a:hover .fa-whatsapp { color: #25D366; }
 
   .fade-in {
     opacity: 0;
@@ -721,13 +671,22 @@
     transform: translateY(0);
   }
 
-  @media (min-width: 768px) {
-    .desktop-menu {
-      display: flex;
+  /* RESPONSIVE BREAKPOINTS */
+  @media (min-width: 1080px) {
+    .hamburger-menu {
+      display: none !important;
     }
     
-    .hamburger-menu {
-      display: none;
+    .desktop-menu {
+      display: flex !important;
+    }
+    
+    .language-switcher {
+      display: flex !important;
+    }
+    
+    .mobile-lang-switcher {
+      display: none !important;
     }
     
     .profile {
@@ -752,19 +711,23 @@
     .footer-social {
       justify-content: flex-end;
     }
-
-    .mobile-lang-switcher {
-      display: none;
-    }
   }
 
-  @media (max-width: 767px) {
+  @media (max-width: 1079px) {
     .hamburger-menu {
       display: block !important;
     }
-
+    
+    .desktop-menu {
+      display: none !important;
+    }
+    
     .language-switcher {
       display: none !important;
+    }
+    
+    .mobile-lang-switcher {
+      display: flex !important;
     }
   }
 
@@ -772,6 +735,7 @@
     * {
       animation-duration: 0.01ms !important;
       transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
     }
   }
   </style>
@@ -798,11 +762,11 @@
           <li><a href="Home.html" data-lang="id">BERANDA</a><a href="Home.html" data-lang="en">HOME</a></li>
           <li><a href="AOI.html" data-lang="id">TENTANG AOI</a><a href="AOI.html" data-lang="en">ABOUT AOI</a></li>
           <li class="dropdown">
-            <a href="#" data-lang="id">FILM AOI </a><a href="#" data-lang="en">AOI FILMS</a>
+            <a href="#" data-lang="id">FILM AOI</a><a href="#" data-lang="en">AOI FILMS</a>
             <ul class="dropdown-menu">
               <li><a href="Introduction.html">Introduction</a></li>
               <li><a href="Sports.html">Sports Performance</a></li>
-              <li><a href="Diet.html">Diet and Beauty</a></li>
+              <li><a href="Diet_and_Beauty.html">Diet and Beauty</a></li>
             </ul>
           </li>
           <li><a href="Home.html#products" data-lang="id">PRODUK KAMI</a><a href="Home.html#products" data-lang="en">OUR PRODUCTS</a></li>
@@ -833,7 +797,7 @@
         <ul class="dropdown-menu">
           <li><a href="Introduction.html" onclick="toggleMobileMenu()">Introduction</a></li>
           <li><a href="Sports.html" onclick="toggleMobileMenu()">Sports Performance</a></li>
-          <li><a href="Diet.html" onclick="toggleMobileMenu()">Diet and Beauty</a></li>
+          <li><a href="Diet_and_Beauty.html" onclick="toggleMobileMenu()">Diet and Beauty</a></li>
         </ul>
       </li>
       <li><a href="Home.html#products" onclick="toggleMobileMenu()" data-lang="id">PRODUK KAMI</a><a href="Home.html#products" onclick="toggleMobileMenu()" data-lang="en">OUR PRODUCTS</a></li>
@@ -954,9 +918,6 @@
     (function() {
       'use strict';
 
-      // =====================
-      // LOADING SCREEN
-      // =====================
       window.addEventListener('load', () => {
         setTimeout(() => {
           const loader = document.getElementById('loading-screen');
@@ -964,9 +925,6 @@
         }, 500);
       });
 
-      // =====================
-      // MOBILE MENU
-      // =====================
       window.toggleMobileMenu = function() {
         const menu = document.getElementById('mobile-menu');
         const icon = document.querySelector('.hamburger-menu i');
@@ -990,9 +948,6 @@
         }
       });
 
-      // =====================
-      // SMOOTH SCROLLING
-      // =====================
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
           const href = this.getAttribute('href');
@@ -1013,9 +968,6 @@
         });
       });
 
-      // =====================
-      // SCROLL TO TOP BUTTON
-      // =====================
       const scrollBtn = document.getElementById('scroll-to-top');
       if (scrollBtn) {
         window.addEventListener('scroll', () => {
@@ -1027,9 +979,6 @@
         });
       }
 
-      // =====================
-      // INTERSECTION OBSERVER
-      // =====================
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
@@ -1040,23 +989,17 @@
 
       document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-      // =====================
-      // MANUAL LANGUAGE SWITCHER - NO GOOGLE TRANSLATE NEEDED!
-      // =====================
       window.changeLanguage = function(lang) {
-        console.log('Changing language to:', lang);
+        if (lang !== 'id' && lang !== 'en') return;
         
-        // Update body class
         document.body.className = 'lang-' + lang;
         
-        // Update button states
         document.querySelectorAll('.lang-btn, .mobile-lang-switcher button').forEach(btn => {
           btn.classList.remove('active');
         });
         
-        // Set active state
         document.querySelectorAll('.lang-btn').forEach(btn => {
-          if (btn.textContent.trim() === lang.toUpperCase()) {
+          if (btn.textContent.trim().toLowerCase() === lang) {
             btn.classList.add('active');
           }
         });
@@ -1068,16 +1011,23 @@
           }
         });
         
-        // Save preference
-        localStorage.setItem('preferredLanguage', lang);
-        
-        console.log('Language changed successfully to:', lang);
+        try {
+          localStorage.setItem('preferredLanguage', lang);
+        } catch (e) {
+          console.warn('Could not save language preference to localStorage:', e);
+        }
       };
 
-      // Load saved language preference
-      const savedLang = localStorage.getItem('preferredLanguage');
-      if (savedLang) {
-        changeLanguage(savedLang);
+      try {
+        const savedLang = localStorage.getItem('preferredLanguage');
+        if (savedLang === 'en' || savedLang === 'id') {
+          changeLanguage(savedLang);
+        } else {
+          changeLanguage('id');
+        }
+      } catch (e) {
+        console.warn('Could not read language preference from localStorage:', e);
+        changeLanguage('id');
       }
 
     })();
