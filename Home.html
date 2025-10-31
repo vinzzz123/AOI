@@ -58,25 +58,10 @@
     overflow-x: hidden;
   }
 
-  /* Language Switching */
-  /* Default: Hide English */
-  [data-lang="en"] { 
-    display: none !important; 
-  }
-  
-  /* When English mode: Hide Indonesian, Show English */
-  body.lang-en [data-lang="id"] { 
-    display: none !important; 
-  }
-  
-  body.lang-en [data-lang="en"] { 
-    display: block !important; 
-  }
-  
-  body.lang-en span[data-lang="en"],
-  body.lang-en strong[data-lang="en"] { 
-    display: inline !important; 
-  }
+  /* Language Switching - FIXED VERSION */
+  [data-lang="en"] { display: none; }
+  body.lang-en [data-lang="id"] { display: none; }
+  body.lang-en [data-lang="en"] { display: inline-block; }
 
   .container {
     width: 100%;
@@ -110,7 +95,6 @@
     max-width: var(--container-max);
     margin: 0 auto;
     gap: var(--spacing-md);
-    position: relative;
   }
 
   .logo-container {
@@ -131,25 +115,14 @@
     display: flex;
     align-items: center;
     gap: var(--spacing-md);
-    flex-grow: 1;
-    justify-content: flex-end;
-    min-width: 0;
   }
 
   .desktop-menu {
     list-style: none;
     display: none;
-    flex-wrap: nowrap;
     gap: clamp(1rem, 2.5vw, 2.5rem);
     align-items: center;
     margin: 0;
-    padding: 0;
-    min-width: 0;
-  }
-
-  .desktop-menu li {
-    list-style: none;
-    flex-shrink: 0;
   }
 
   .desktop-menu li a {
@@ -160,9 +133,6 @@
     transition: var(--transition-base);
     white-space: nowrap;
     padding: var(--spacing-xs);
-    display: block;
-    overflow: visible;
-    text-overflow: clip;
   }
 
   nav.scrolled .desktop-menu li a {
@@ -175,12 +145,9 @@
 
   .desktop-menu li.dropdown {
     position: relative;
-    padding-bottom: 10px;
-    margin-bottom: -10px;
   }
 
   .desktop-menu li .dropdown-menu {
-    display: none;
     opacity: 0;
     visibility: hidden;
     position: absolute;
@@ -191,16 +158,41 @@
     border-radius: 12px;
     box-shadow: var(--shadow-lg);
     min-width: 220px;
-    margin-top: var(--spacing-xs);
+    margin-top: 8px;
     list-style: none;
+    list-style-type: none;
+    padding-left: 0;
     z-index: 1001;
     transition: opacity 0.2s ease, visibility 0.2s ease;
+    pointer-events: none;
+  }
+
+  /* Bridge the gap between menu item and dropdown */
+  .desktop-menu li .dropdown-menu::before {
+    content: "";
+    position: absolute;
+    top: -8px;
+    left: 0;
+    right: 0;
+    height: 8px;
+    background: transparent;
+  }
+
+  .desktop-menu li.dropdown:hover .dropdown-menu,
+  .desktop-menu li .dropdown-menu:hover {
+    opacity: 1;
+    visibility: visible;
+    transition-delay: 0s;
+    pointer-events: auto;
+  }
+  
+  /* 500ms delay before dropdown disappears */
+  .desktop-menu li.dropdown .dropdown-menu {
+    transition-delay: 0s, 0s, 0.5s;
   }
 
   .desktop-menu li.dropdown:hover .dropdown-menu {
-    display: block;
-    opacity: 1;
-    visibility: visible;
+    transition-delay: 0s;
   }
 
   .desktop-menu li .dropdown-menu li {
@@ -226,7 +218,6 @@
     border-radius: 20px;
     cursor: pointer;
     transition: var(--transition-base);
-    flex-shrink: 0;
   }
 
   nav.scrolled .language-switcher {
@@ -281,9 +272,8 @@
     cursor: pointer;
     z-index: 1001;
     padding: var(--spacing-xs);
-    background: transparent;
+    background: none;
     border: none;
-    flex-shrink: 0;
   }
 
   nav.scrolled .hamburger-menu {
@@ -296,7 +286,7 @@
     right: -100%;
     width: min(100%, 400px);
     height: 100vh;
-    background: var(--color-white);
+    background: var(--color-primary);
     transition: right 0.3s ease;
     z-index: 999;
     display: flex;
@@ -322,7 +312,7 @@
   }
 
   .mobile-menu li a {
-    color: var(--color-primary);
+    color: var(--color-white);
     font-size: var(--font-size-lg);
     font-weight: 600;
     text-decoration: none;
@@ -346,7 +336,7 @@
   .mobile-menu .dropdown-menu li a {
     font-size: var(--font-size-base);
     padding-left: var(--spacing-lg);
-    color: var(--color-gray);
+    color: rgb(201, 217, 247);
   }
 
   .mobile-lang-switcher {
@@ -374,12 +364,12 @@
   }
 
   .mobile-lang-switcher button:hover {
-    background: var(--color-primary);
+    background: var(--color-gray);
     color: var(--color-white);
   }
 
   .mobile-lang-switcher button.active {
-    background: var(--color-primary);
+    background: var(--color-gray);
     color: var(--color-white);
   }
 
@@ -553,15 +543,14 @@
     position: relative;
     max-width: 100%;
     overflow: hidden;
-    padding: var(--spacing-md) clamp(60px, 10vw, 80px);
-    margin: 0 auto;
+    padding: var(--spacing-md) 0;
   }
 
   .slider-track {
     display: flex;
     gap: var(--spacing-md);
     transition: transform 0.5s ease;
-    padding: 0;
+    padding: 0 var(--spacing-sm);
   }
 
   .store-card {
@@ -622,11 +611,11 @@
   }
 
   .slider-arrow.left {
-    left: 5px;
+    left: var(--spacing-sm);
   }
 
   .slider-arrow.right {
-    right: 5px;
+    right: var(--spacing-sm);
   }
 
   /* FOOTER */
@@ -670,10 +659,10 @@
     text-decoration: none;
   }
 
-  .footer-social a:hover .fa-instagram { color: #E4405F; }
+  .footer-social a:hover .fa-instagram { color: #1877F2; }
   .footer-social a:hover .fa-facebook { color: #1877F2; }
-  .footer-social a:hover .fa-tiktok { color: #000; }
-  .footer-social a:hover .fa-whatsapp { color: #25D366; }
+  .footer-social a:hover .fa-tiktok { color: #1877F2; }
+  .footer-social a:hover .fa-whatsapp { color: #1877F2; }
 
   .fade-in {
     opacity: 0;
@@ -686,24 +675,19 @@
     transform: translateY(0);
   }
 
-  /* RESPONSIVE BREAKPOINTS - UPDATED FROM SPORTS.HTML */
-  @media (min-width: 1080px) { 
-    .hamburger-menu { 
-      display: none !important; 
+  @media (min-width: 1081px) {
+    .desktop-menu {
+      display: flex;
+    }
+
+    .language-switcher {
+      display: flex;
     }
     
-    .desktop-menu { 
-      display: flex !important; 
+    .hamburger-menu {
+      display: none;
     }
     
-    .language-switcher { 
-      display: flex !important; 
-    }
-    
-    .mobile-lang-switcher { 
-      display: none !important; 
-    }
-      
     .about-grid {
       grid-template-columns: 1fr 1fr;
     }
@@ -724,7 +708,13 @@
     .footer-social {
       justify-content: flex-end;
     }
-    
+
+    .mobile-lang-switcher {
+      display: none;
+    }
+  }
+
+  @media (min-width: 992px) {
     .hero {
       justify-content: flex-start;
     }
@@ -739,29 +729,9 @@
     }
   }
 
-  @media (max-width: 1079px) {
-    .hamburger-menu { 
-      display: block !important; 
-    }
-    
-    .desktop-menu { 
-      display: none !important; 
-    }
-    
-    .language-switcher { 
-      display: none !important; 
-    }
-    
-    .mobile-lang-switcher { 
-      display: flex !important; 
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    * {
-      animation-duration: 0.01ms !important;
-      transition-duration: 0.01ms !important;
-      scroll-behavior: auto !important;
+  @media (max-width: 1080px) {
+    .language-switcher {
+      display: none !important;
     }
   }
   </style>
@@ -780,7 +750,7 @@
           <li><a href="#home"><span data-lang="id">BERANDA</span><span data-lang="en">HOME</span></a></li>
           <li><a href="AOI.html"><span data-lang="id">TENTANG AOI</span><span data-lang="en">ABOUT AOI</span></a></li>
           <li class="dropdown">
-            <a href="Introduction.html"><span data-lang="id">FILM AOI</span><span data-lang="en">AOI FILMS</span></a>
+            <a href="Introduction.html"><span data-lang="id">FILM AOI ▾</span><span data-lang="en">AOI FILMS ▾</span></a>
             <ul class="dropdown-menu">
               <li><a href="Introduction.html">Introduction</a></li>
               <li><a href="Sports.html">Sports Performance</a></li>
@@ -811,7 +781,7 @@
       <li><a href="Home.html" onclick="toggleMobileMenu()"><span data-lang="id">BERANDA</span><span data-lang="en">HOME</span></a></li>
       <li><a href="AOI.html" onclick="toggleMobileMenu()"><span data-lang="id">TENTANG AOI</span><span data-lang="en">ABOUT AOI</span></a></li>
       <li class="dropdown">
-        <a href="#"><span data-lang="id">FILM AOI</span><span data-lang="en">AOI FILMS</span></a>
+        <a href="#"><span data-lang="id">FILM AOI ▾</span><span data-lang="en">AOI FILMS ▾</span></a>
         <ul class="dropdown-menu">
           <li><a href="Introduction.html" onclick="toggleMobileMenu()">Introduction</a></li>
           <li><a href="Sports.html" onclick="toggleMobileMenu()">Sports Performance</a></li>
@@ -856,17 +826,16 @@
               dan mendistribusikan oksigen ke setiap sudut di tubuh kita dengan lebih baik.
             </p>
             <p data-lang="en">
-              <strong>AOI NANO CLUSTER WATER</strong> is water with innovative technology from Japan, 
-              reformulated to enhance water absorption by the body 
-              and better distribute oxygen to every part of our body.
+              <strong>AOI NANO CLUSTER WATER</strong> is water, with innovative Japanese technology, 
+              reformulated to enhance the bodyÃ¢â‚¬â„¢s water absorption 
+              and improve oxygen distribution throughout every part of the body.
             </p>
             <p data-lang="id">
               Hasilnya, <strong>AOI NANO CLUSTER WATER</strong> pun mampu meningkatkan metabolisme tubuh 
               untuk bekerja lebih baik sehingga bermanfaat untuk kesehatan dan kecantikan.
             </p>
             <p data-lang="en">
-              As a result, <strong>AOI NANO CLUSTER WATER</strong> can enhance body metabolism 
-              to work better, benefiting health and beauty.
+              As a result, <strong>AOI NANO CLUSTER WATER</strong> can speed up our metabolism, benefiting our health and beauty.
             </p>
             <a href="AOI.html" class="btn-primary"><span data-lang="id">Pelajari Lebih Lanjut</span><span data-lang="en">Learn More</span></a>
           </div>
@@ -890,13 +859,13 @@
         <div class="product-card fade-in">
           <img src="Assets/AOI 500 ML.png" alt="AOI 500 ml">
           <h3>AOI 500 ml</h3>
-          <a href="https://linktr.ee/aoinanowater" target="_blank" class="btn-primary"><span data-lang="id">Beli</span><span data-lang="en">Buy</span></a>
+          <a href="https://linktr.ee/aoinanowater" target="_blank" class="btn-primary"><span data-lang="id">Beli</span><span data-lang="en">Order</span></a>
         </div>
 
         <div class="product-card fade-in">
           <img src="Assets/AOI 330 ML.png" alt="AOI 330 ml">
           <h3>AOI 330 ml</h3>
-          <a href="https://linktr.ee/aoinanowater" target="_blank" class="btn-primary"><span data-lang="id">Beli</span><span data-lang="en">Buy</span></a>
+          <a href="https://linktr.ee/aoinanowater" target="_blank" class="btn-primary"><span data-lang="id">Beli</span><span data-lang="en">Order</span></a>
         </div>
       </div>
     </div>
@@ -921,7 +890,7 @@
           <div class="store-card"><img src="Assets/Fulimart2.png" alt="Fulimart"></div>
           <div class="store-card"><img src="Assets/Gelael1.png" alt="Gelael"></div>
           <div class="store-card"><img src="Assets/Grandlucky1.png" alt="Grand Lucky"></div>
-          <div class="store-card"><img src="AssetsTwo/Marketcity.jpg" alt="Market City"></div>
+          <div class="store-card"><img src="Assets/Marketcity.jpg" alt="Market City"></div>
           <div class="store-card"><img src="Assets/Papaya.jpg" alt="Papaya"></div>
           <div class="store-card"><img src="Assets/Azko.png" alt="Azko"></div>
           <div class="store-card"><img src="Assets/CircleK.png" alt="Circle K"></div>
@@ -982,6 +951,9 @@
     (function() {
       'use strict';
 
+      // =====================
+      // MOBILE MENU
+      // =====================
       window.toggleMobileMenu = function() {
         const menu = document.getElementById('mobile-menu');
         const icon = document.querySelector('.hamburger-menu i');
@@ -1005,6 +977,9 @@
         }
       });
 
+      // =====================
+      // SMOOTH SCROLLING
+      // =====================
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
           const href = this.getAttribute('href');
@@ -1025,6 +1000,9 @@
         });
       });
 
+      // =====================
+      // INTERSECTION OBSERVER
+      // =====================
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
@@ -1035,6 +1013,9 @@
 
       document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
+      // =====================
+      // NAVBAR SCROLL
+      // =====================
       const navbar = document.getElementById('navbar');
       const logoImg = document.getElementById('logo-img');
 
@@ -1051,6 +1032,9 @@
 
       window.addEventListener('scroll', handleScroll, { passive: true });
 
+      // =====================
+      // STORE SLIDER
+      // =====================
       const sliderTrack = document.getElementById('slider-track');
       const prevBtn = document.getElementById('prevBtn');
       const nextBtn = document.getElementById('nextBtn');
@@ -1106,7 +1090,12 @@
 
       updateSlider();
 
+      // =====================
+      // LANGUAGE SWITCHER
+      // =====================
       window.changeLanguage = function(lang) {
+        console.log( 'Changing language to:', lang);
+        
         document.body.className = document.body.className.replace(/lang-\w+/g, '');
         document.body.classList.add('lang-' + lang);
         
@@ -1126,6 +1115,7 @@
         });
         
         localStorage.setItem('preferredLanguage', lang);
+        console.log('Ã¢Å“â€¦ Language changed successfully to:', lang);
       };
 
       const savedLang = localStorage.getItem('preferredLanguage');
