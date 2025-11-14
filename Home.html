@@ -714,26 +714,70 @@
     }
   }
 
-  @media (min-width: 992px) {
-    .hero {
-      justify-content: flex-start;
-    }
-    
-    .hero-content {
-      text-align: left;
-      margin-left: 5%;
-    }
-    
-    .products-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
+  /* -------------------------------------------
+    DEFAULT (Desktop)
+  -------------------------------------------- */
+  .desktop-menu {
+    display: flex;
   }
 
-  @media (max-width: 1080px) {
+  .hamburger-menu {
+    display: none;
+  }
+
+  .language-switcher {
+    display: block;
+  }
+
+  /* -------------------------------------------
+    MOBILE MODE (<1296px) — includes iPads
+  -------------------------------------------- */
+  @media (max-width: 1296px) {
+    .desktop-menu {
+      display: none !important;
+    }
+
+    .hamburger-menu {
+      display: block !important;
+    }
+
+    /* Hide standalone language switcher on navbar */
     .language-switcher {
       display: none !important;
     }
+
+    /* SHOW the language inside the hamburger menu */
+    .mobile-lang {
+      display: block !important;
+      margin-top: 16px;
+    }
   }
+
+  /* -------------------------------------------
+    SAFARI iOS/iPadOS FIX  
+    Ensures iPad Mini & Air always follow mobile rules
+  -------------------------------------------- */
+  @supports (-webkit-touch-callout: none) {
+    @media (max-width: 1296px) {
+      .desktop-menu {
+        display: none !important;
+      }
+
+      .hamburger-menu {
+        display: block !important;
+      }
+
+      .language-switcher {
+        display: none !important;
+      }
+
+      .mobile-lang {
+        display: block !important;
+      }
+    }
+  }
+  
+
   </style>
 </head>
 <body class="lang-id">
@@ -754,7 +798,7 @@
             <ul class="dropdown-menu">
               <li><a href="Introduction.html">Introduction</a></li>
               <li><a href="Sports.html">Sports Performance</a></li>
-              <li><a href="Diet and Beauty.html">Diet and Beauty</a></li>
+              <li><a href="Diet.html">Diet and Beauty</a></li>
             </ul>
           </li>
           <li><a href="#products"><span data-lang="id">PRODUK KAMI</span><span data-lang="en">OUR PRODUCTS</span></a></li>
